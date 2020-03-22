@@ -49,7 +49,10 @@ myRouter.route('/')
 myRouter.route('/tasks')
 .get((req,res)=>{
 	Task.find((err,tasks)=>{
-		(err)?res.send(err):res.json(tasks);
+		if(err){
+			res.send(err);
+		}
+		res.json(tasks);
 	});
 	
 })
