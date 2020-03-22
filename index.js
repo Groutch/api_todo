@@ -5,7 +5,7 @@ var express = require('express');
 
 // Nous définissons ici les paramètres du serveur.
 var hostname = 'localhost'; 
-var port = 3000; 
+var port = process.env.PORT || 80 
 
 var app = express();
 var myRouter = express.Router();
