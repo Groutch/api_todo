@@ -25,8 +25,10 @@ client.connect(err => {
 */
 var db_user = "Groutch";
 var mongoose = require('mongoose'); 
+//var options = { keepAlive: 300000, connectTimeoutMS: 30000, useNewUrlParser: true, useUnifiedTopology: true  };
 var options = { keepAlive: 300000, connectTimeoutMS: 30000, useNewUrlParser: true, useUnifiedTopology: true  };
-var urlmongo = "mongodb+srv://"+db_user+":1086@cluster0-tsdzz.gcp.mongodb.net/db_todo"; 
+//var urlmongo = "mongodb+srv://"+db_user+":1086@cluster0-tsdzz.gcp.mongodb.net/db_todo";
+var urlmongo = process.env.MONGOLAB_URI 
 mongoose.connect(urlmongo, options);
 var db = mongoose.connection; 
 db.on('error', console.error.bind(console, 'Erreur lors de la connexion')); 
@@ -100,6 +102,6 @@ myRouter.route('/tasks/:task_id')
 
 app.use(myRouter);
 // Démarrer le serveur 
-app.listen(port, function(){
-	console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port+"\n"); 
-});
+const server = app.listen(process.env.PORT || 8080, (req, res) =>
+	console.log('Server Ready')
+);
